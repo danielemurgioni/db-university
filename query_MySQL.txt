@@ -1,0 +1,91 @@
+create database `db_university`;
+
+**importo il file sql in allegato**
+
+use `db_university`; 
+
+------------------------------------ 1. Selezionare tutti gli studenti nati nel 1990 (160)
+
+[seleziono tutte le colonne delle tabella "students" e filtro le righe dove la colonna "date_of_birth" ha valore che comprende "1990%"  EX: "1990-08-13" comprende "1990"]
+
+SELECT *
+FROM `students`
+WHERE `date_of_birth` LIKE "1990%"   
+
+[
+    uso l'operatore LIKE viene letta come stringa
+]
+
+SELECT *
+FROM `students`
+WHERE year (`date_of_birth`) = "1990"   
+
+[
+    uso la funzione YEAR che recupera l'anno e lo confronto a "1990"
+]
+
+------------------------------------ 2. Selezionare tutti i corsi che valgono più di 10 crediti (479)
+
+[seleziono tutte le colonne delle tabella "courses" e filtro le righe dove la colonna "cfu" ha valore maggiore a "10"]
+
+SELECT * 
+FROM `courses`
+WHERE `cfu` > 10
+
+3. Selezionare tutti gli studenti che hanno più di 30 anni
+
+[seleziono tutte le colonne delle tabella "courses" e filtro le righe con un calcolo tramite la funzione TIMESTAMPDIFF( dato da prendere in cosiderazione, anno di nascita degli studenti MENO data corrente CURDATE() )]
+
+SELECT * , TIMESTAMPDIFF(YEAR, `date_of_birth`, CURDATE())  AS `età_studente` [mostro il risultato nella tabella e gli do un allias con AS]
+FROM `students`
+WHERE TIMESTAMPDIFF(YEAR, `date_of_birth`, CURDATE()) > 30
+
+------------------------------------ 4. Selezionare tutti i corsi del primo semestre del primo anno di un qualsiasi corso di laurea (286)
+
+[seleziono tutte le colonne delle tabella "courses" e filtro le righe dove la colonna "period" ha valore uguale a "I semestre" AND la colonna "year" ha valore uguale a "1"]
+
+SELECT *
+FROM `courses`
+WHERE `period` = "I semestre"
+AND `year` = 1
+
+------------------------------------ 5. Selezionare tutti gli appelli d'esame che avvengono nel pomeriggio (dopo le 14) del 20/06/2020 (21)
+
+[seleziono tutte le colonne delle tabella "exams" e filtro le righe dove la colonna "date" ha valore uguale a "2020-06-20" AND la colonna "hour" ha valore maggiore a "14:00"]
+
+SELECT *
+FROM `exams`
+WHERE `date` = "2020-06-20"
+AND `hour` > "14:00"
+
+------------------------------------ 6. Selezionare tutti i corsi di laurea magistrale (38)
+
+[seleziono tutte le colonne delle tabella "degrees" e filtro le righe dove la colonna "level" ha valore uguale a "magistrale"]
+
+SELECT * 
+FROM `degrees`
+WHERE `level` = "magistrale";
+
+------------------------------------ 7. Da quanti dipartimenti è composta l'università? (12)
+
+[seleziono tutte le colonne delle tabella "departments" e mostro il numero totale con la funzione count() ]
+
+SELECT count(*) AS `totale_dipartimenti`           
+FROM `departments`
+
+[
+    con la "KEY" AS rinomino
+]
+
+------------------------------------ 8. Quanti sono gli insegnanti che non hanno un numero di telefono? (50)
+
+[seleziono tutte le colonne delle tabella "teachers" e filtro le righe dove la colonna "phone" ha valore NULL]
+
+SELECT *
+FROM `teachers`
+WHERE `phone` IS NULL
+
+[
+    con la "KEY" IS NULL vado a mostrare tutti gli elementi con valore nullo/assente;
+    con la "KEY" IS NOT NULL vado a mostrare tutti gli elementi con del valore presente;
+]
