@@ -18,7 +18,7 @@ WHERE `date_of_birth` LIKE "1990%"
 
 SELECT *
 FROM `students`
-WHERE year (`date_of_birth`) = "1990"   
+WHERE year (`date_of_birth`) = "1990"
 
 [
     uso la funzione YEAR che recupera l'anno e lo confronto a "1990"
@@ -70,7 +70,7 @@ WHERE `level` = "magistrale";
 
 [seleziono tutte le colonne delle tabella "departments" e mostro il numero totale con la funzione count() ]
 
-SELECT count(*) AS `totale_dipartimenti`           
+SELECT COUNT(*) AS `totale_dipartimenti`           
 FROM `departments`
 
 [
@@ -81,7 +81,7 @@ FROM `departments`
 
 [seleziono tutte le colonne delle tabella "teachers" e filtro le righe dove la colonna "phone" ha valore NULL]
 
-SELECT *
+SELECT COUNT(*) AS `phone_null_counter`
 FROM `teachers`
 WHERE `phone` IS NULL
 
